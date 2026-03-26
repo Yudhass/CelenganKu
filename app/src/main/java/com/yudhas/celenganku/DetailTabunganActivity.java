@@ -9,6 +9,10 @@ import android.view.View;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.yudhas.celenganku.adapter.TransaksiAdapter;
@@ -39,8 +43,15 @@ public class DetailTabunganActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         binding = ActivityDetailTabunganBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, windowInsets) -> {
+            Insets navBars = windowInsets.getInsets(WindowInsetsCompat.Type.navigationBars());
+            v.setPadding(0, 0, 0, navBars.bottom);
+            return windowInsets;
+        });
 
         db = AppDatabase.getInstance(this);
         tabunganId = getIntent().getLongExtra(EXTRA_TABUNGAN_ID, -1);
@@ -129,43 +140,21 @@ public class DetailTabunganActivity extends AppCompatActivity {
     }
 
     private void setupFilterChips() {
-        setActiveFilterBtn(binding.btnFilterSemua); // default = Semua
-
-        binding.btnFilterSemua.setOnClickListener(v -> {
-            currentFilter = "semua";
-            setActiveFilterBtn(binding.btnFilterSemua);
-            loadTransaksi();
-        });
-        binding.btnFilterMasuk.setOnClickListener(v -> {
-            currentFilter = "masuk";
-            setActiveFilterBtn(binding.btnFilterMasuk);
-            loadTransaksi();
-        });
-        binding.btnFilterKeluar.setOnClickListener(v -> {
-            currentFilter = "keluar";
-            setActiveFilterBtn(binding.btnFilterKeluar);
+        // chipFilterSemua is already android:checked="true" in XML
+        binding.chipGroupFilter.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId == R.id.chipFilterSemua) currentFilter = "semua";
+            else if (checkedId == R.id.chipFilterMasuk) currentFilter = "masuk";
+            else if (checkedId == R.id.chipFilterKeluar) currentFilter = "keluar";
+            else return;
             loadTransaksi();
         });
     }
 
-    private void setActiveFilterBtn(android.widget.TextView active) {
-        android.widget.TextView[] all = {
-            binding.btnFilterSemua, binding.btnFilterMasuk, binding.btnFilterKeluar
-        };
-        for (android.widget.TextView tv : all) {
-            if (tv == active) {
-                tv.setBackground(androidx.core.content.ContextCompat.getDrawable(this,
-                        R.drawable.bg_segment_active));
-                tv.setTextColor(androidx.core.content.ContextCompat.getColor(this,
-                        R.color.white));
-                tv.setTypeface(null, android.graphics.Typeface.BOLD);
-            } else {
-                tv.setBackground(null);
-                tv.setTextColor(androidx.core.content.ContextCompat.getColor(this,
-                        R.color.primary));
-                tv.setTypeface(null, android.graphics.Typeface.NORMAL);
-            }
-        }
+    /** Enable / disable a button-like view with proper alpha feedback. */
+    private void setButtonEnabled(android.view.View btn, boolean enabled) {
+        btn.setEnabled(enabled);
+        btn.setClickable(enabled);
+        btn.setAlpha(enabled ? 1.0f : 0.45f);
     }
 
     private void setupHapusSemuaButton() {
@@ -255,11 +244,12 @@ public class DetailTabunganActivity extends AppCompatActivity {
         // Sisa
         if (t.isCompleted()) {
             binding.tvSisa.setText("✅ Lunas!");
-            binding.btnTambah.setEnabled(false);
-            binding.btnKurangi.setEnabled(false);
+            setButtonEnabled(binding.btnTambah, false);
+            setButtonEnabled(binding.btnKurangi, false);
         } else {
             binding.tvSisa.setText(CurrencyHelper.formatRupiah(t.getSisaNominal()));
-            binding.btnKurangi.setEnabled(t.getCurrentNominal() > 0);
+            setButtonEnabled(binding.btnTambah, true);
+            setButtonEnabled(binding.btnKurangi, t.getCurrentNominal() > 0);
         }
 
         // Dibuat pada

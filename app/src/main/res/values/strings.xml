@@ -3,7 +3,7 @@
 
     <!-- Home -->
     <string name="title_tabungan_saya">Tabungan Saya</string>
-    <string name="empty_tabungan">Belum ada tabungan.\nYuk buat tabungan pertamamu! 🐷</string>
+    <string name="empty_tabungan">Belum ada tabungan.\nYuk buat tabungan pertamamu! 🐘</string>
     <string name="btn_tambah_tabungan">+ Tabungan Baru</string>
 
     <!-- Tabungan Card -->

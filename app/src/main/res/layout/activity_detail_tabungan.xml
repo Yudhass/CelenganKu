@@ -10,6 +10,7 @@
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
         android:background="@color/primary"
         app:elevation="4dp">
 
@@ -267,38 +268,86 @@
                 android:orientation="horizontal"
                 android:layout_marginBottom="16dp">
 
-                <com.google.android.material.button.MaterialButton
+                <!-- Tambah Saldo: icon zone (left) + divider + centered text -->
+                <LinearLayout
                     android:id="@+id/btnTambah"
                     android:layout_width="0dp"
                     android:layout_height="52dp"
                     android:layout_weight="1"
-                    android:layout_marginEnd="8dp"
-                    android:text="Tambah Saldo"
-                    android:textSize="14sp"
-                    android:textAllCaps="false"
-                    app:backgroundTint="@color/primary"
-                    app:cornerRadius="12dp"
-                    app:icon="@drawable/ic_btn_plus"
-                    app:iconGravity="start"
-                    app:iconTint="@color/white"
-                    app:iconSize="20dp"
-                    app:iconPadding="2dp"/>
+                    android:layout_marginEnd="6dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/bg_btn_tambah"
+                    android:clickable="true"
+                    android:focusable="true">
 
-                <com.google.android.material.button.MaterialButton
+                    <FrameLayout
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent">
+                        <ImageView
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_btn_plus"
+                            android:contentDescription="Tambah"
+                            app:tint="@color/white"/>
+                    </FrameLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="26dp"
+                        android:background="#44FFFFFF"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="Tambah Saldo"
+                        android:textColor="@color/white"
+                        android:textSize="13sp"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+
+                <!-- Kurangi Saldo: icon zone (left) + divider + centered text -->
+                <LinearLayout
                     android:id="@+id/btnKurangi"
                     android:layout_width="0dp"
                     android:layout_height="52dp"
                     android:layout_weight="1"
-                    android:text="Kurangi Saldo"
-                    android:textSize="14sp"
-                    android:textAllCaps="false"
-                    app:backgroundTint="@color/orange_warning"
-                    app:cornerRadius="12dp"
-                    app:icon="@drawable/ic_btn_minus"
-                    app:iconGravity="start"
-                    app:iconTint="@color/white"
-                    app:iconSize="20dp"
-                    app:iconPadding="2dp"/>
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/bg_btn_kurangi"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <FrameLayout
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent">
+                        <ImageView
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_btn_minus"
+                            android:contentDescription="Kurangi"
+                            app:tint="@color/white"/>
+                    </FrameLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="26dp"
+                        android:background="#44FFFFFF"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="Kurangi Saldo"
+                        android:textColor="@color/white"
+                        android:textSize="13sp"
+                        android:textStyle="bold"/>
+                </LinearLayout>
             </LinearLayout>
 
             <!-- Riwayat Header Row: Judul + Hapus Semua -->
@@ -333,50 +382,39 @@
                     android:paddingEnd="10dp"/>
             </LinearLayout>
 
-            <!-- Modern Segmented Filter Control -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:orientation="horizontal"
-                android:background="@drawable/bg_segment_container"
+            <!-- Modern Chip Filter -->
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroupFilter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
-                android:padding="4dp">
+                app:singleSelection="true"
+                app:selectionRequired="true"
+                app:chipSpacingHorizontal="6dp">
 
-                <TextView
-                    android:id="@+id/btnFilterSemua"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipFilterSemua"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="Semua"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
-                    android:background="@drawable/bg_segment_active"/>
+                    android:checked="true"/>
 
-                <TextView
-                    android:id="@+id/btnFilterMasuk"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="➕ Masuk"
-                    android:textSize="13sp"
-                    android:textColor="@color/primary"
-                    android:background="@android:color/transparent"/>
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipFilterMasuk"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="➕ Masuk"/>
 
-                <TextView
-                    android:id="@+id/btnFilterKeluar"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="➖ Keluar"
-                    android:textSize="13sp"
-                    android:textColor="@color/primary"
-                    android:background="@android:color/transparent"/>
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipFilterKeluar"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="➖ Keluar"/>
 
-            </LinearLayout>
+            </com.google.android.material.chip.ChipGroup>
 
             <!-- Transaction List -->
             <LinearLayout
@@ -390,7 +428,8 @@
                     android:layout_height="wrap_content"
                     android:nestedScrollingEnabled="false"
                     android:clipToPadding="false"
-                    android:paddingHorizontal="0dp"
+                    android:paddingStart="2dp"
+                    android:paddingEnd="2dp"
                     android:paddingBottom="4dp"/>
 
                 <TextView
