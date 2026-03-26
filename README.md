@@ -135,7 +135,50 @@ CelenganKu dirancang untuk menjawab kebutuhan pengguna yang ingin:
 
 ---
 
-## 🔔 Sistem Notifikasi
+## � Screenshots
+
+<table style="border-collapse: collapse; border: none;">
+  <tr>
+    <td align="center"><img src="_DEV/ss/1.jpeg" width="280" alt="Dashboard"></td>
+    <td align="center"><img src="_DEV/ss/2.jpeg" width="280" alt="Dashboard 2"></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="_DEV/ss/3.jpeg" width="280" alt="Buat Tabungan"></td>
+    <td align="center"><img src="_DEV/ss/4.jpeg" width="280" alt="Buat Tabungan 2"></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="_DEV/ss/5.jpeg" width="280" alt="Notifikasi Settings"></td>
+    <td align="center"><img src="_DEV/ss/6.jpeg" width="280" alt="Notifikasi Settings 2"></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="_DEV/ss/7.jpeg" width="280" alt="Detail Tabungan"></td>
+    <td align="center"><img src="_DEV/ss/8.jpeg" width="280" alt="Detail Tabungan 2"></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="_DEV/ss/9.jpeg" width="280" alt="Riwayat Transaksi"></td>
+    <td align="center"><img src="_DEV/ss/10.jpeg" width="280" alt="Riwayat Transaksi 2"></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="_DEV/ss/11.jpeg" width="280" alt="Tambah Saldo"></td>
+    <td align="center"><img src="_DEV/ss/12.jpeg" width="280" alt="Tambah Saldo 2"></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="_DEV/ss/13.jpeg" width="280" alt="Kurangi Saldo"></td>
+    <td align="center"><img src="_DEV/ss/14.jpeg" width="280" alt="Kurangi Saldo 2"></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="_DEV/ss/15.jpeg" width="280" alt="Edit Transaksi"></td>
+    <td align="center"><img src="_DEV/ss/16.jpeg" width="280" alt="Edit Transaksi 2"></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="_DEV/ss/17.jpeg" width="280" alt="Filter Riwayat"></td>
+    <td align="center"><img src="_DEV/ss/18.jpeg" width="280" alt="Filter Riwayat 2"></td>
+  </tr>
+</table>
+
+---
+
+## �🔔 Sistem Notifikasi
 
 CelenganKu memiliki sistem notifikasi yang fleksibel dan lengkap menggunakan **WorkManager**.
 
