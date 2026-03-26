@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary"
+        app:elevation="4dp">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/primary"
+            app:titleTextColor="@color/white"
+            app:subtitleTextColor="#B2DFDB"
+            app:navigationIconTint="@color/white"
+            app:title="Detail Tabungan"/>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Progress Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="@color/primary">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="16dp">
+
+                        <TextView
+                            android:id="@+id/tvNama"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/white"
+                            android:maxLines="2"
+                            android:text="Nama Tabungan"/>
+
+                        <TextView
+                            android:id="@+id/tvProgressPersen"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0%"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/white"
+                            android:layout_marginStart="8dp"/>
+                    </LinearLayout>
+
+                    <ProgressBar
+                        android:id="@+id/progressBarLarge"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="14dp"
+                        android:layout_marginBottom="16dp"
+                        android:max="100"
+                        android:progress="0"
+                        android:progressBackgroundTint="#1A4D49"
+                        android:progressTint="#FFFFFF"/>
+
+                    <!-- Stats: Terkumpul | Target -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="10dp">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:gravity="center">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                android:text="💰 Terkumpul" android:textSize="11sp" android:textColor="#B2DFDB"/>
+                            <TextView
+                                android:id="@+id/tvTerkumpul"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="15sp" android:textStyle="bold"
+                                android:textColor="@color/white"
+                                android:gravity="center"
+                                android:maxLines="1" android:ellipsize="end"
+                                android:text="Rp 0"/>
+                        </LinearLayout>
+
+                        <View android:layout_width="1dp" android:layout_height="40dp" android:background="#1A4D49"/>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:gravity="center">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                android:text="🎯 Target" android:textSize="11sp" android:textColor="#B2DFDB"/>
+                            <TextView
+                                android:id="@+id/tvTarget"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="15sp" android:textStyle="bold"
+                                android:textColor="@color/white"
+                                android:gravity="center"
+                                android:maxLines="1" android:ellipsize="end"
+                                android:text="Rp 0"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- Sisa highlight -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:background="#1A4D49"
+                        android:paddingVertical="8dp"
+                        android:paddingHorizontal="16dp">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="❗ Sisa: " android:textSize="13sp" android:textColor="#B2DFDB"/>
+                        <TextView
+                            android:id="@+id/tvSisa"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textSize="16sp" android:textStyle="bold"
+                            android:textColor="#FFCC80"
+                            android:maxLines="1" android:ellipsize="end"
+                            android:text="Rp 0"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Info Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="3dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <!-- Dibuat pada -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="8dp">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="📅 Dibuat: " android:textSize="13sp" android:textColor="@color/text_secondary"
+                            android:layout_marginEnd="4dp"/>
+                        <TextView
+                            android:id="@+id/tvDibuat"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textSize="13sp" android:textStyle="bold"
+                            android:textColor="@color/text_primary"
+                            android:text="-"/>
+                    </LinearLayout>
+
+                    <!-- Target Selesai (Deadline) -->
+                    <LinearLayout
+                        android:id="@+id/layoutDeadline"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="8dp"
+                        android:visibility="gone">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="🏁 Target Selesai: " android:textSize="13sp"
+                            android:textColor="@color/text_secondary" android:layout_marginEnd="4dp"/>
+                        <TextView
+                            android:id="@+id/tvDeadline"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textSize="13sp" android:textStyle="bold"
+                            android:textColor="@color/text_primary"
+                            android:text="-"/>
+                    </LinearLayout>
+
+                    <!-- Deskripsi -->
+                    <LinearLayout
+                        android:id="@+id/layoutDeskripsi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="top"
+                        android:layout_marginBottom="8dp"
+                        android:visibility="gone">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="📝 Catatan: " android:textSize="13sp"
+                            android:textColor="@color/text_secondary" android:layout_marginEnd="4dp"/>
+                        <TextView
+                            android:id="@+id/tvDeskripsi"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textSize="13sp" android:textColor="@color/text_primary"
+                            android:text="-"/>
+                    </LinearLayout>
+
+                    <!-- Notifikasi -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="🔔 Notifikasi: " android:textSize="13sp"
+                            android:textColor="@color/text_secondary" android:layout_marginEnd="4dp"/>
+                        <TextView
+                            android:id="@+id/tvNotifInfo"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textSize="13sp" android:textStyle="bold"
+                            android:textColor="@color/primary"
+                            android:text="Tidak ada"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Tambah + Kurangi Buttons -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnTambah"
+                    android:layout_width="0dp"
+                    android:layout_height="52dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:text="Tambah Saldo"
+                    android:textSize="14sp"
+                    android:textAllCaps="false"
+                    app:backgroundTint="@color/primary"
+                    app:cornerRadius="12dp"
+                    app:icon="@drawable/ic_btn_plus"
+                    app:iconGravity="start"
+                    app:iconTint="@color/white"
+                    app:iconSize="20dp"
+                    app:iconPadding="2dp"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnKurangi"
+                    android:layout_width="0dp"
+                    android:layout_height="52dp"
+                    android:layout_weight="1"
+                    android:text="Kurangi Saldo"
+                    android:textSize="14sp"
+                    android:textAllCaps="false"
+                    app:backgroundTint="@color/orange_warning"
+                    app:cornerRadius="12dp"
+                    app:icon="@drawable/ic_btn_minus"
+                    app:iconGravity="start"
+                    app:iconTint="@color/white"
+                    app:iconSize="20dp"
+                    app:iconPadding="2dp"/>
+            </LinearLayout>
+
+            <!-- Riwayat Header Row: Judul + Hapus Semua -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="4dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="📜 Riwayat Transaksi"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnHapusSemua"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:text="🗑️ Hapus Semua"
+                    android:textSize="12sp"
+                    android:visibility="gone"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    app:strokeColor="#B71C1C"
+                    android:textColor="#B71C1C"
+                    app:cornerRadius="20dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"/>
+            </LinearLayout>
+
+            <!-- Modern Segmented Filter Control -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:orientation="horizontal"
+                android:background="@drawable/bg_segment_container"
+                android:layout_marginBottom="12dp"
+                android:padding="4dp">
+
+                <TextView
+                    android:id="@+id/btnFilterSemua"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Semua"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:background="@drawable/bg_segment_active"/>
+
+                <TextView
+                    android:id="@+id/btnFilterMasuk"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="➕ Masuk"
+                    android:textSize="13sp"
+                    android:textColor="@color/primary"
+                    android:background="@android:color/transparent"/>
+
+                <TextView
+                    android:id="@+id/btnFilterKeluar"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="➖ Keluar"
+                    android:textSize="13sp"
+                    android:textColor="@color/primary"
+                    android:background="@android:color/transparent"/>
+
+            </LinearLayout>
+
+            <!-- Transaction List -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerTransaksi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    android:clipToPadding="false"
+                    android:paddingHorizontal="0dp"
+                    android:paddingBottom="4dp"/>
+
+                <TextView
+                    android:id="@+id/tvEmptyTransaksi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="24dp"
+                    android:gravity="center"
+                    android:text="📭 Belum ada transaksi"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_secondary"
+                    android:visibility="gone"/>
+            </LinearLayout>
+
+            <View android:layout_width="match_parent" android:layout_height="24dp"/>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+

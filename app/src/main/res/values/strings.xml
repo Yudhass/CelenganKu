@@ -1,0 +1,72 @@
+<resources>
+    <string name="app_name">CelenganKu</string>
+
+    <!-- Home -->
+    <string name="title_tabungan_saya">Tabungan Saya</string>
+    <string name="empty_tabungan">Belum ada tabungan.\nYuk buat tabungan pertamamu! 🐷</string>
+    <string name="btn_tambah_tabungan">+ Tabungan Baru</string>
+
+    <!-- Tabungan Card -->
+    <string name="label_terkumpul">Terkumpul</string>
+    <string name="label_target">Target</string>
+    <string name="label_sisa">Sisa</string>
+    <string name="label_deadline">Deadline</string>
+    <string name="label_progress">Progress</string>
+    <string name="btn_tambah">+ Tambah</string>
+    <string name="btn_kurangi">- Kurangi</string>
+    <string name="btn_detail">Detail</string>
+
+    <!-- Form Tabungan -->
+    <string name="title_buat_tabungan">Buat Tabungan Baru</string>
+    <string name="title_edit_tabungan">Edit Tabungan</string>
+    <string name="hint_nama_tabungan">Nama Target (contoh: Beli Laptop)</string>
+    <string name="hint_target_nominal">Nominal Target (Rp)</string>
+    <string name="hint_deadline">Deadline (opsional, dd/MM/yyyy)</string>
+    <string name="hint_deskripsi">Deskripsi (opsional)</string>
+    <string name="hint_notif_type">Frekuensi Notifikasi</string>
+    <string name="hint_notif_time">Jam Notifikasi (contoh: 19:00)</string>
+    <string name="btn_simpan">Simpan</string>
+    <string name="btn_batal">Batal</string>
+
+    <!-- Notif Types -->
+    <string name="notif_none">Tidak Ada Notifikasi</string>
+    <string name="notif_harian">Harian 📅</string>
+    <string name="notif_mingguan">Mingguan 📆</string>
+    <string name="notif_bulanan">Bulanan 🗓️</string>
+
+    <!-- Form Transaksi -->
+    <string name="title_tambah_saldo">Tambah Saldo</string>
+    <string name="title_kurangi_saldo">Kurangi Saldo</string>
+    <string name="hint_nominal">Nominal (Rp)</string>
+    <string name="hint_deskripsi_transaksi">Deskripsi (opsional)</string>
+    <string name="hint_tanggal">Tanggal</string>
+    <string name="btn_simpan_transaksi">Simpan Transaksi</string>
+
+    <!-- Detail -->
+    <string name="title_detail_tabungan">Detail Tabungan</string>
+    <string name="title_riwayat">Riwayat Transaksi</string>
+    <string name="empty_transaksi">Belum ada transaksi</string>
+    <string name="filter_semua">Semua</string>
+    <string name="filter_masuk">Masuk</string>
+    <string name="filter_keluar">Keluar</string>
+    <string name="label_masuk">➕ Masuk</string>
+    <string name="label_keluar">➖ Keluar</string>
+    <string name="btn_edit">Edit</string>
+    <string name="btn_hapus">Hapus</string>
+
+    <!-- Messages -->
+    <string name="msg_hapus_tabungan">Hapus tabungan ini? Semua riwayat transaksi akan ikut terhapus.</string>
+    <string name="msg_ya">Ya, Hapus</string>
+    <string name="msg_tidak">Tidak</string>
+    <string name="msg_target_tercapai">🎉 Target Tercapai!</string>
+    <string name="msg_berhasil_simpan">Berhasil disimpan!</string>
+    <string name="msg_berhasil_hapus">Berhasil dihapus!</string>
+    <string name="msg_input_invalid">Mohon isi semua field yang diperlukan</string>
+    <string name="msg_nominal_invalid">Nominal harus lebih dari 0</string>
+    <string name="msg_tanggal_invalid">Format tanggal tidak valid (dd/MM/yyyy)</string>
+    <string name="msg_jam_invalid">Format jam tidak valid (HH:mm)</string>
+    <string name="hari_lagi">hari lagi</string>
+    <string name="terlewat">Sudah terlewat</string>
+    <string name="selesai">✅ Selesai</string>
+</resources>
+
