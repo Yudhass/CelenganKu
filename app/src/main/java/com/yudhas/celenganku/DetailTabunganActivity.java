@@ -3,6 +3,7 @@ package com.yudhas.celenganku;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.ContextThemeWrapper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,8 +16,10 @@ import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.android.material.chip.Chip;
 import com.yudhas.celenganku.adapter.TransaksiAdapter;
 import com.yudhas.celenganku.database.AppDatabase;
+import com.yudhas.celenganku.database.entity.NotifikasiTabungan;
 import com.yudhas.celenganku.database.entity.Tabungan;
 import com.yudhas.celenganku.database.entity.Transaksi;
 import com.yudhas.celenganku.databinding.ActivityDetailTabunganBinding;
@@ -228,11 +231,12 @@ public class DetailTabunganActivity extends AppCompatActivity {
         executor.execute(() -> {
             currentTabungan = db.tabunganDao().getById(tabunganId);
             if (currentTabungan == null) { runOnUiThread(this::finish); return; }
-            runOnUiThread(() -> { bindTabunganData(currentTabungan); loadTransaksi(); });
+            List<NotifikasiTabungan> notifList = db.notifikasiTabunganDao().getByTabunganId(tabunganId);
+            runOnUiThread(() -> { bindTabunganData(currentTabungan, notifList); loadTransaksi(); });
         });
     }
 
-    private void bindTabunganData(Tabungan t) {
+    private void bindTabunganData(Tabungan t, List<NotifikasiTabungan> notifList) {
         int progress = t.getProgressPercent();
         binding.toolbar.setTitle(t.getNama());
         binding.tvNama.setText(t.getNama());
@@ -283,39 +287,58 @@ public class DetailTabunganActivity extends AppCompatActivity {
             binding.layoutDeskripsi.setVisibility(View.GONE);
         }
 
-        // Notifikasi info
-        String notifText;
-        String type = t.getNotifType() != null ? t.getNotifType() : "none";
-        switch (type) {
-            case "permenit":
-                notifText = "Setiap " + t.getNotifIntervalMenit() + " menit ⏱️";
-                break;
-            case "perjam":
-                notifText = "Setiap " + t.getNotifIntervalJam() + " jam ⏰";
-                break;
-            case "harian":
-                notifText = "Harian 📅 jam " + t.getNotifTime();
-                break;
-            case "mingguan":
-                notifText = "Setiap " + t.getNotifHariMinggu() + " 📆 jam " + t.getNotifTime();
-                break;
-            case "bulanan":
-                notifText = "Setiap tgl " + t.getNotifTanggalBulanan() + " 🗓️ jam " + t.getNotifTime();
-                break;
-            default:
-                notifText = "Tidak ada";
-                break;
+        // ── Notification chips — one per schedule, color-coded by type ────────
+        binding.chipGroupNotif.removeAllViews();
+
+        if (notifList == null || notifList.isEmpty()) {
+            binding.tvNotifEmpty.setVisibility(View.VISIBLE);
+            binding.chipGroupNotif.setVisibility(View.GONE);
+            binding.tvNotifCountBadge.setVisibility(View.GONE);
+        } else {
+            binding.tvNotifEmpty.setVisibility(View.GONE);
+            binding.chipGroupNotif.setVisibility(View.VISIBLE);
+            binding.tvNotifCountBadge.setVisibility(View.VISIBLE);
+            binding.tvNotifCountBadge.setText(notifList.size() + " aktif");
+
+            for (NotifikasiTabungan notif : notifList) {
+                Chip chip = new Chip(new ContextThemeWrapper(this,
+                        com.google.android.material.R.style.Widget_MaterialComponents_Chip_Entry));
+                chip.setText(notif.getSummary());
+                chip.setCheckable(false);
+                chip.setClickable(false);
+                chip.setCloseIconVisible(false);
+                chip.setCheckedIconVisible(false);
+
+                // Background + text color based on notification type
+                final int bgColor, textColor;
+                switch (notif.getNotifType() != null ? notif.getNotifType() : "") {
+                    case "permenit": bgColor = Color.parseColor("#E0F7FA"); textColor = Color.parseColor("#00838F"); break;
+                    case "perjam":   bgColor = Color.parseColor("#E3F2FD"); textColor = Color.parseColor("#1565C0"); break;
+                    case "mingguan": bgColor = Color.parseColor("#FFF3E0"); textColor = Color.parseColor("#E65100"); break;
+                    case "bulanan":  bgColor = Color.parseColor("#F3E5F5"); textColor = Color.parseColor("#6A1B9A"); break;
+                    default:         bgColor = Color.parseColor("#E0F2F1"); textColor = Color.parseColor("#00695C"); break; // harian
+                }
+
+                chip.setChipBackgroundColor(android.content.res.ColorStateList.valueOf(bgColor));
+                chip.setTextColor(textColor);
+                // Subtle border in the same hue as text (33% alpha)
+                chip.setChipStrokeColor(android.content.res.ColorStateList.valueOf(
+                        (textColor & 0x00FFFFFF) | 0x33000000));
+                chip.setChipStrokeWidth(1f);
+                chip.setTextSize(12.5f);
+
+                binding.chipGroupNotif.addView(chip);
+            }
         }
-        binding.tvNotifInfo.setText(notifText);
     }
 
     private void loadTransaksi() {
         executor.execute(() -> {
             List<Transaksi> list;
             switch (currentFilter) {
-                case "masuk": list = db.transaksiDao().getByTabunganIdAndTipe(tabunganId, "masuk"); break;
+                case "masuk":  list = db.transaksiDao().getByTabunganIdAndTipe(tabunganId, "masuk");  break;
                 case "keluar": list = db.transaksiDao().getByTabunganIdAndTipe(tabunganId, "keluar"); break;
-                default: list = db.transaksiDao().getByTabunganId(tabunganId); break;
+                default:       list = db.transaksiDao().getByTabunganId(tabunganId); break;
             }
             final List<Transaksi> finalList = list;
             runOnUiThread(() -> {
@@ -341,7 +364,7 @@ public class DetailTabunganActivity extends AppCompatActivity {
     private void deleteTabungan() {
         executor.execute(() -> {
             if (currentTabungan != null) {
-                NotificationScheduler.cancelSchedule(this, tabunganId);
+                NotificationScheduler.cancelAll(this, tabunganId);
                 db.tabunganDao().delete(currentTabungan);
             }
             runOnUiThread(() -> {

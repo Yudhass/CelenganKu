@@ -151,11 +151,12 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Card: Pengaturan Notifikasi -->
+            <!-- ════ Card: Daftar Jadwal Notifikasi ════ -->
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardNotifList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="12dp"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="3dp">
 
@@ -165,11 +166,91 @@
                     android:orientation="vertical"
                     android:padding="16dp">
 
+                    <!-- Header row -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="10dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="🔔 Jadwal Notifikasi"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/primary"/>
+
+                        <TextView
+                            android:id="@+id/tvNotifCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0 jadwal"
+                            android:textSize="12sp"
+                            android:textColor="@color/text_secondary"/>
+                    </LinearLayout>
+
+                    <!-- Empty state hint -->
                     <TextView
+                        android:id="@+id/tvNoNotifHint"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Belum ada jadwal. Ketuk tombol di bawah untuk menambahkan."
+                        android:textSize="13sp"
+                        android:textColor="@color/text_secondary"
+                        android:gravity="center"
+                        android:paddingVertical="8dp"
+                        android:visibility="visible"/>
+
+                    <!-- Dynamic list of notification items inserted here -->
+                    <LinearLayout
+                        android:id="@+id/layoutNotifList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"/>
+
+                    <!-- Add schedule button -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnTambahNotif"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="➕  Tambah Jadwal Notifikasi"
+                        android:textSize="14sp"
+                        app:strokeColor="@color/primary"
+                        app:cornerRadius="10dp"/>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ════ Card: Form Jadwal Notifikasi (hidden until user taps Tambah) ════ -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardNotifForm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:visibility="gone"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="3dp"
+                app:strokeColor="@color/primary"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <!-- Form title -->
+                    <TextView
+                        android:id="@+id/tvFormNotifTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="🔔 Pengaturan Notifikasi"
-                        android:textSize="15sp"
+                        android:text="📝 Jadwal Baru"
+                        android:textSize="14sp"
                         android:textStyle="bold"
                         android:textColor="@color/primary"
                         android:layout_marginBottom="12dp"/>
@@ -194,7 +275,7 @@
                             android:inputType="none"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <!-- Per Jam: interval jam (visible only when "perjam") -->
+                    <!-- Per Jam: interval jam -->
                     <LinearLayout
                         android:id="@+id/layoutNotifPerJam"
                         android:layout_width="match_parent"
@@ -223,7 +304,7 @@
                         </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
 
-                    <!-- Per Menit: interval menit (visible only when "permenit") -->
+                    <!-- Per Menit: interval menit -->
                     <LinearLayout
                         android:id="@+id/layoutNotifPerMenit"
                         android:layout_width="match_parent"
@@ -252,7 +333,7 @@
                         </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
 
-                    <!-- Mingguan: Hari (visible only when "mingguan") -->
+                    <!-- Mingguan: Hari -->
                     <LinearLayout
                         android:id="@+id/layoutNotifHari"
                         android:layout_width="match_parent"
@@ -279,7 +360,7 @@
                         </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
 
-                    <!-- Bulanan: Tanggal (visible only when "bulanan") -->
+                    <!-- Bulanan: Tanggal -->
                     <LinearLayout
                         android:id="@+id/layoutNotifTanggal"
                         android:layout_width="match_parent"
@@ -307,11 +388,12 @@
                         </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
 
-                    <!-- Jam Notifikasi (visible for harian, mingguan, bulanan) -->
+                    <!-- Jam Notifikasi -->
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilNotifTime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
                         android:hint="Jam Notifikasi"
                         app:helperText="Ketuk untuk memilih jam pengingat"
                         app:endIconMode="custom"
@@ -322,7 +404,6 @@
                         app:boxCornerRadiusBottomEnd="10dp"
                         android:visibility="gone"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etNotifTime"
                             android:layout_width="match_parent"
@@ -330,6 +411,33 @@
                             android:focusable="false"
                             android:clickable="true"/>
                     </com.google.android.material.textfield.TextInputLayout>
+
+                    <!-- Form action buttons -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="end">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnBatalJadwal"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:text="Batal"
+                            app:strokeColor="@color/primary"
+                            app:cornerRadius="10dp"/>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnSimpanJadwal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="✔ Simpan Jadwal"
+                            app:backgroundTint="@color/primary"
+                            app:cornerRadius="10dp"/>
+
+                    </LinearLayout>
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>

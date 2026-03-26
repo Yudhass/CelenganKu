@@ -240,24 +240,70 @@
                             android:text="-"/>
                     </LinearLayout>
 
-                    <!-- Notifikasi -->
+                    <!-- ── Notifikasi Section ────────────────────────────── -->
+
+                    <!-- Divider -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/primary_light"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="10dp"/>
+
+                    <!-- Header row: label + count badge -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:gravity="center_vertical">
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                            android:text="🔔 Notifikasi: " android:textSize="13sp"
-                            android:textColor="@color/text_secondary" android:layout_marginEnd="4dp"/>
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="8dp">
+
                         <TextView
-                            android:id="@+id/tvNotifInfo"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:textSize="13sp" android:textStyle="bold"
-                            android:textColor="@color/primary"
-                            android:text="Tidak ada"/>
+                            android:text="🔔 Jadwal Notifikasi"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/text_secondary"
+                            android:letterSpacing="0.03"/>
+
+                        <!-- Count badge pill — hidden when 0 -->
+                        <TextView
+                            android:id="@+id/tvNotifCountBadge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0 aktif"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/white"
+                            android:background="@drawable/bg_status_badge"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:visibility="gone"/>
                     </LinearLayout>
+
+                    <!-- Empty state -->
+                    <TextView
+                        android:id="@+id/tvNotifEmpty"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tidak ada jadwal notifikasi"
+                        android:textSize="13sp"
+                        android:textColor="@color/text_secondary"
+                        android:textStyle="italic"
+                        android:visibility="visible"/>
+
+                    <!-- Chips container — one chip per notification schedule -->
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/chipGroupNotif"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:chipSpacingVertical="4dp"
+                        app:chipSpacingHorizontal="4dp"
+                        android:visibility="gone"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
